@@ -66,7 +66,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold text-primary">Food & Drink Table</h5>
+                            <h5 class="m-0 font-weight-bold text-primary">Booking Order Tabel</h5>
                             <a href="{{ url('addbooking') }}" class="btn btn-primary">Add Booking Order</a>
                         </div>
                         <div class="card-body">
