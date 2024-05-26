@@ -24,7 +24,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Edit Product</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Edit Booking Table</h1>
                     <p class="mb-4">Edit product details below.</p>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -53,8 +53,12 @@
                                     <input type="date" name="date" class="form-control bg-light border-0 small" value="{{$data->booking_date}}">
                                 </div>
                                 <div class="mb-4">
-                                    <label>Time</label>
-                                    <input type="time" name="time" class="form-control bg-light border-0 small" value="{{$data->booking_time }}}">
+                                    <label>Start Time</label>
+                                    <input type="time"  name="start_time" class="form-control bg-light border-0 small" value="{{$data->start_time}}" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label>End Time</label>
+                                    <input type="time" name="end_time" class="form-control bg-light border-0 small" value="{{$data->end_time}}" required>
                                 </div>
                                 <div class="mb-4">
                                     <label>Total</label>
