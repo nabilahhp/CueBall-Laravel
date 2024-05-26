@@ -377,36 +377,26 @@ public function deletecustomer($id)
 
     public function updatebooking(Request $request, $id)
     {
-        $request->validate([
-            'customer_name' => 'required|string|max:255',
-            'table_name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
-            'booking_date' => 'required|date',
-            'booking_time' => 'required',
-            'total_price' => 'required|numeric',
-            'payment_method' => 'required|string|max:255',
-            'payment_proof' => 'nullable|file|mimes:jpg,png,jpeg,pdf|max:2048',
-            'status' => 'required|string|max:255',
-        ]);
-
-        $booking = Booking::find($id);
-        $booking->customer_name = $request->customer_name;
-        $booking->table_name = $request->table_name;
-        $booking->category = $request->category;
-        $booking->booking_date = $request->booking_date;
-        $booking->booking_time = $request->booking_time;
-        $booking->total_price = $request->total_price;
-        $booking->payment_method = $request->payment_method;
-        $booking->status = $request->status;
+        
+        $data = Booking::find($id);
+        $data->customer_name = $request->customer_name;
+        $data->table_name = $request->table_name;
+        $data->category = $request->category;
+        $data->booking_date = $request->booking_date;
+        $data->start_time = $request->start_time;
+        $data->end_time = $request->end_time;
+        $data->price = $request->price;
+        $data->payment_method = $request->payment_method;
+        $data->status = $request->status;
 
         if ($request->hasFile('payment_proof')) {
             $image = $request->file('payment_proof');
             $imagename = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('invoice'), $imagename);
-            $booking->payment_proof = $imagename;
+            $image->move(public_path('public/invoice'), $imagename);
+            $data->payment_proof = $imagename;
         }
 
-        $booking->save();
+        $data->save();
 
         toastr()->addSuccess('Booking Updated Successfully.');
         return redirect('/booking');
