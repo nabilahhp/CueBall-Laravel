@@ -18,22 +18,22 @@
             border: 1px solid #dee2e6;
             border-radius: 0.25rem;
             color: #fff;
-            background-color: #4e73df;
-            border-color: #4e73df;
+            background-color: #000;
+            border-color: #000;
         }
 
         .dataTables_wrapper .dataTables_paginate .paginate_button.current,
         .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
             color: #fff !important;
-            border: 1px #4e73df;color: #fff;
-            background-color: #4e73df;
-            border-color: #4e73df;
+            border: 1px #000;color: #fff;
+            background-color: #000;
+            border-color: #000;
         }
 
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
             color: #ffffff !important;
-            background: #4e73df;
-            border: 1px solid #4e73df;
+            background: #000;
+            border: 1px solid #000;
         }
 
         
