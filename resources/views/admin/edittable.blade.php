@@ -25,9 +25,11 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Edit Billiard Table</h1>
-                    <p class="mb-4">Edit billiard table details below.</p>
+                    <p class="mb-4">Effortlessly updating and modifying the details of your store’s billiard tables.</p>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                        </div>
                         <div class="card-body">
                             <form action="{{url('updatetable',$data->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf

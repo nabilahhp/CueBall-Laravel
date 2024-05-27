@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Product - Admin Panel</title>
+    <title>Edit User - Admin Panel</title>
     @include('admin.css')
 </head>
 
@@ -24,10 +24,12 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Edit Billiard Table</h1>
-                    <p class="mb-4">Edit billiard table details below.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Edit User</h1>
+                    <p class="mb-4">The perfect place for you to update and modify user profiles, roles, and permissions seamlessly.</p>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                        </div>
                         <div class="card-body">
                             <form action="{{url('updateuser',$data->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -48,7 +50,7 @@
                                     <input type="text" name="address" class="form-control bg-light border-0 small" placeholder="Add your address" value="{{$data->address}}" required>
                                 </div>
                             <div class="mb-4">
-                                <label>User Type</label>
+                                <label>Type</label>
                                 <select name="usertype" class="form-control bg-light border-0 small" required>
                                     <option value="Admin" {{ $data->usertype == 'admin' ? 'selected' : '' }}>Admin</option>
                                     <option value="User" {{ $data->usertype == 'user' ? 'selected' : '' }}>User</option>

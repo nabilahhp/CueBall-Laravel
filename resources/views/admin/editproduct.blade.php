@@ -25,9 +25,11 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Edit Product</h1>
-                    <p class="mb-4">Edit product details below.</p>
+                    <p class="mb-4">Updating and modifying the details of your store’s food and drink.</p>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                        </div>
                         <div class="card-body">
                             <form action="{{url('updateproduct',$data->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf

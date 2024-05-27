@@ -9,9 +9,12 @@ use App\Models\Table;
 use App\Models\User;
 use App\Models\OrderProduct;
 use App\Models\Booking;
+use App\Models\Expenses;
+use App\Models\Income;
 
 class AdminController extends Controller
 {
+
    public function category()
     {
         $data = Category::all();
@@ -39,14 +42,15 @@ class AdminController extends Controller
     } else {
         toastr()->addError('Category Not Found.');
     }
-
     return redirect()->back();
     }
+
     public function editcategory($id)
     {
         $data = Category::find($id);
         return view('admin.editcategory',compact('data'));
     }
+
     public function updatecategory(Request $request, $id)
     {
         $data = Category::find($id);
@@ -121,8 +125,6 @@ class AdminController extends Controller
         return redirect('/product');
     }
 
-
-
     public function table()
     {
         $table = Table::all();
@@ -193,19 +195,15 @@ class AdminController extends Controller
         'phone' => 'required|string|max:15',
         'address' => 'required|string|max:255',
     ]);
-
     $user = User::find($id);
-
     if (!$user) {
         return redirect('/user')->with('error', 'User not found.');
     }
-
     $user->name = $request->name;
     $user->email = $request->email;
     $user->usertype = $request->usertype;
     $user->phone = $request->phone;
     $user->address = $request->address;
-
     $user->save();
     toastr()->addSuccess('User Updated Successfully.');
     return redirect('/user');
@@ -236,60 +234,95 @@ class AdminController extends Controller
     }
 
     public function updatecustomer(Request $request, $id)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-        'usertype' => 'required|string|max:255',
-        'phone' => 'required|string|max:15',
-        'address' => 'required|string|max:255',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'usertype' => 'required|string|max:255',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+        ]);
 
-    $customer = User::find($id);
+        $customer = User::find($id);
 
-    if (!$customer) {
-        return redirect('/customer')->with('error', 'Customer not found.');
+        if (!$customer) {
+            return redirect('/customer')->with('error', 'Customer not found.');
+        }
+
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->usertype = $request->usertype;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
+
+        $customer->save();
+
+        toastr()->addSuccess('Customer Updated Successfully.');
+
+        return redirect('/customer');
     }
 
-    $customer->name = $request->name;
-    $customer->email = $request->email;
-    $customer->usertype = $request->usertype;
-    $customer->phone = $request->phone;
-    $customer->address = $request->address;
+    public function deletecustomer($id)
+    {
+        $customer = User::find($id);
 
-    $customer->save();
+        if (!$customer) {
+            return redirect()->back()->with('error', 'Customer not found.');
+        }
 
-    toastr()->addSuccess('Customer Updated Successfully.');
+        $customer->delete();
 
-    return redirect('/customer');
-}
+        toastr()->addSuccess('Customer Deleted Successfully.');
 
-public function deletecustomer($id)
-{
-    $customer = User::find($id);
-
-    if (!$customer) {
-        return redirect()->back()->with('error', 'Customer not found.');
+        return redirect()->back();
     }
-
-    $customer->delete();
-
-    toastr()->addSuccess('Customer Deleted Successfully.');
-
-    return redirect()->back();
-}
 
     public function orderproduct()
     {
         $orderproduct = OrderProduct::all();
         return view('admin.orderproduct', compact('orderproduct'));
     }
+    public function addorderproduct()
+    {
+        $category = Category::all();
+        $customer = User::where('usertype', 'user')->get();
+        $product = Product::all();
+
+        return view('admin.addorderproduct', compact('category', 'product', 'customer'));
+    }
+
+    public function uploadorderproduct(Request $request)
+    {
+    $data = new OrderProduct();
+    $data->customer_name = $request->customer_name;
+    $data->category = $request->category;
+    $data->product_name = $request->product_name;
+    $data->quantity = $request->quantity;
+    $data->price = $request->price;
+    $data->payment_method = $request->payment_method;
+    $data->status = $request->status;
+
+    if ($request->hasFile('payment_proof')) {
+        $image = $request->file('payment_proof');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('invoice'), $imageName);
+        $data->payment_proof = $imageName;
+    }
+
+    $data->save();
+    toastr()->success('Product Uploaded Successfully.');
+    return redirect('/orderproduct');   
+}
+
+
 
     public function editorderproduct($id)
     {
         $data = OrderProduct::find($id);
+        $orderproduct = OrderProduct::all();
+        $product = Product::all();
         $category = Category::all();
-        return view('admin.editorderproduct', compact('data','category'));
+        return view('admin.editorderproduct', compact('data','category','product','orderproduct'));
     }
 
     public function updateorderproduct(Request $request, $id)
@@ -298,14 +331,15 @@ public function deletecustomer($id)
         $data->customer_name = $request->customer_name;
         $data->category = $request->category;
         $data->product_name = $request->product_name;
-        $data->total = $request->total;
+        $data->quantity = $request->quantity;
+        $data->price = $request->price;
         $data->payment_method = $request->payment_method;
         $data->status = $request->status;
         $image = $request->payment_proof;
         If($image)
         {
             $imagename = time().'.'.$image->getClientOriginalExtension();
-            $request->payment_proof->move('products',$imagename);
+            $request->payment_proof->move('invoice',$imagename);
             $data->payment_proof = $imagename;
         }
         $data->save();
@@ -346,39 +380,8 @@ public function deletecustomer($id)
     }
 
     public function uploadbooking(Request $request)
-{
-    $data = new Booking();
-    $data->customer_name = $request->customer_name;
-    $data->table_name = $request->table_name;
-    $data->category = $request->category;
-    $data->booking_date = $request->booking_date;
-    $data->start_time = $request->start_time;
-    $data->end_time = $request->end_time;
-    $data->price = $request->price;
-    $data->payment_method = $request->payment_method;
-    $data->status = $request->status;
-
-    if ($request->hasFile('payment_proof')) {
-        $image = $request->file('payment_proof');
-        $imagename = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('invoice'), $imagename);
-        $data->payment_proof = $imagename;
-    } else {
-        $data->payment_proof = null; // Ensure it is set to null if not provided
-    }
-
-    // Save the Booking instance
-    $data->save();
-
-    toastr()->addSuccess('Booking Created Successfully.');
-    return redirect('/booking');
-}
-
-
-    public function updatebooking(Request $request, $id)
     {
-        
-        $data = Booking::find($id);
+        $data = new Booking();
         $data->customer_name = $request->customer_name;
         $data->table_name = $request->table_name;
         $data->category = $request->category;
@@ -392,15 +395,47 @@ public function deletecustomer($id)
         if ($request->hasFile('payment_proof')) {
             $image = $request->file('payment_proof');
             $imagename = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('public/invoice'), $imagename);
+            $image->move(public_path('invoice'), $imagename);
             $data->payment_proof = $imagename;
+        } else {
+            $data->payment_proof = null; // Ensure it is set to null if not provided
         }
 
+        // Save the Booking instance
         $data->save();
 
-        toastr()->addSuccess('Booking Updated Successfully.');
+        toastr()->addSuccess('Booking Created Successfully.');
         return redirect('/booking');
     }
+
+    public function updatebooking(Request $request, $id)
+    {
+                
+                $data = Booking::find($id);
+                $data->customer_name = $request->customer_name;
+                $data->table_name = $request->table_name;
+                $data->category = $request->category;
+                $data->booking_date = $request->booking_date;
+                $data->start_time = $request->start_time;
+                $data->end_time = $request->end_time;
+                $data->price = $request->price;
+                $data->payment_method = $request->payment_method;
+                $data->status = $request->status;
+                $image = $request->payment_proof;
+                If($image)
+                {
+                    $imagename = time().'.'.$image->getClientOriginalExtension();
+                    $request->payment_proof->move('invoice',$imagename);
+                    $data->payment_proof = $imagename;
+                }
+
+                $data->save();
+
+                toastr()->addSuccess('Booking Updated Successfully.');
+                return redirect('/booking');
+            }
+
+    
 
     public function deletebooking($id)
     {
@@ -409,6 +444,100 @@ public function deletecustomer($id)
         toastr()->addSuccess('Booking Deleted Successfully.');
         return redirect()->back();
     }
+
+    public function income()
+{
+    $orderproduct = OrderProduct::select('id', 'product_name as source', 'category', 'price', 'updated_at', 'status')
+                                  ->where('status', 'completed')
+                                  ->get();
+    $booking = Booking::select('id', 'table_name as source', 'category', 'price', 'updated_at', 'status')
+                       ->where('status', 'completed')
+                       ->get();
+
+    $incomedata = $orderproduct->concat($booking);
+
+    foreach ($incomedata as $data) {
+        // Check if the data already exists in the Income table
+        $existingIncome = Income::where('order_id', $data->id)
+                                ->where('source', $data->source)
+                                ->where('category', $data->category)
+                                ->where('amount', $data->price)
+                                ->where('date', $data->updated_at)
+                                ->where('status', $data->status)
+                                ->first();
+        
+        // If the data does not exist, create a new entry
+        if (!$existingIncome) {
+            Income::create([
+                'order_id' => $data->id,
+                'source' => $data->source,
+                'category' => $data->category,
+                'amount' => $data->price,
+                'date' => $data->updated_at,
+                'status' => $data->status,
+            ]);
+        }
+    }
+
+    // Retrieve all income data
+    $income = Income::all();
+
+    // Return the view with the income data
+    return view('admin.income', compact('income'));
+}
+
+
+
+
+    public function expenses()
+    {
+        $expenses = Expenses::all();
+        return view('admin.expenses', compact('expenses'));
+    }
+
+    public function addexpenses()
+    {
+        return view('admin.addexpenses');
+    }
+
+    public function uploadexpenses(Request $request)
+    {
+        $data = new Expenses;
+        $data->source = $request->source;
+        $data->description = $request->description;
+        $data->amount = $request->amount;
+        $data->date = $request->date;
+        $data->save();
+        toastr()->addSuccess('Expenses Added Successfully.');
+        return redirect('/expenses');  
+    }
+
+    public function editexpenses($id)
+    {
+        $data = Expenses::find($id);
+        return view('admin.editexpenses',compact('data'));
+    }
+
+    public function updateexpenses(Request $request, $id)
+    {
+        $data = Expenses::find($id);
+        $data->source = $request->source;
+        $data->description = $request->description;
+        $data->amount = $request->amount;
+        $data->date = $request->date;
+        $data->save();
+        toastr()->addSuccess('Expenses Updated Successfully.');
+        return redirect('/expenses');
+    }
+
+    public function deleteexpenses($id)
+    {
+        $data = Expenses::find($id);
+        $data->delete();
+        toastr()->addSuccess(' Expenses Deleted Successfully.');
+        return redirect()->back();
+    }
+
 }
 
 

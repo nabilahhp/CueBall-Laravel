@@ -3,6 +3,35 @@
 
 <head>
     @include('admin.css')
+
+    <style>
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.3em 1em;
+            margin-left: 2px;
+            display: inline-block;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            color: #fff;
+            background-color: #4e73df;
+            border-color: #4e73df;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            color: #fff !important;
+            border: 1px #4e73df;color: #fff;
+            background-color: #4e73df;
+            border-color: #4e73df;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            color: #ffffff !important;
+            background: #4e73df;
+            border: 1px solid #4e73df;
+        }
+
+        
+    </style>
 </head>
 
 <body id="page-top">
@@ -32,8 +61,55 @@
                     <!-- Content Row -->
                     @include('admin.content')
 
-                    
-
+                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                    <p class="mb-4">DataTables is a third-party plugin that is used to generate the demo table below. For more information about DataTables, please visit the documentation.</p>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                            <h5 class="m-0 font-weight-bold text-primary">Order List</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="Table" class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Customer Name</th>
+                                            <th>Ordered Items</th>
+                                            <th>Category</th>
+                                            <th>Total</th>
+                                            <th>Created</th>
+                                            <th>Updated</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+<th>Customer Name</th>
+                                            <th>Ordered Items</th>
+                                            <th>Category</th>
+                                            <th>Total</th>
+                                            <th>Created</th>
+                                            <th>Updated</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach($orderlist as $order)
+                                        <tr>
+                                            <td>{{ $order->customer_name }}</td>
+                                            <td>{{ $order->ordered_items }}</td>
+                                            <td>{{ $order->category }}</td>
+                                            <td>{{ $order->price }}</td>
+                                            <td>{{ $order->created_at }}</td>
+                                            <td>{{ $order->updated_at }}</td>
+                                            <td>{{ $order->status }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- End of Page Content -->
 
@@ -79,12 +155,62 @@
     <script src="{{ asset('admincss/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('admincss/js/demo/chart-pie-demo.js') }}"></script>
 
-
     <!-- jQuery -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
 
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <script type="text/javascript">
+        function confirmation(ev) {
+            ev.preventDefault();
+            var urlToRedirect = ev.currentTarget.getAttribute('href');
+            console.log(urlToRedirect);
+            swal({
+                title: "Are you sure you want to delete this?",
+                text: "This action cannot be undone.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = urlToRedirect;
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            function bindModalEvents() {
+            $('#editProductModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var id = button.data('id'); // Extract product ID from data-id attribute
+                var title = button.data('title'); // Extract product title from data-title attribute
+                var description = button.data('description'); // Extract product description
+                var price = button.data('price'); // Extract product price
+                var quantity = button.data('quantity'); // Extract product quantity
+                var category = button.data('category'); // Extract product category
+
+                var modal = $(this);
+                modal.find('.modal-body #editProductId').val(id); // Set the value of the hidden product ID input field in the modal
+                modal.find('.modal-body #editTitle').val(title); // Set the value of the title input field in the modal
+                modal.find('.modal-body #editDescription').val(description); // Set the value of the description input field
+                modal.find('.modal-body #editPrice').val(price); // Set the value of the price input field
+                modal.find('.modal-body #editQuantity').val(quantity); // Set the value of the quantity input field
+                modal.find('.modal-body #editCategory').val(category); // Set the value of the category input field
+            });
+        }
 
 
+            var table = $('#Table').DataTable();
+            bindModalEvents();
+
+            table.on('draw', function () {
+                bindModalEvents(); // Re-bind the event handlers after each draw
+            });
+        });
+    </script>
 </body>
 
 </html>

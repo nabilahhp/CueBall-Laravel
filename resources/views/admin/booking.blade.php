@@ -25,7 +25,8 @@
         .dataTables_wrapper .dataTables_paginate .paginate_button.current,
         .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
             color: #fff !important;
-            border: 1px #4e73df;color: #fff;
+            border: 1px #4e73df;
+            color: #fff;
             background-color: #4e73df;
             border-color: #4e73df;
         }
@@ -35,22 +36,18 @@
             background: #4e73df;
             border: 1px solid #4e73df;
         }
-
-        
     </style>
 </head>
 
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         @include('admin.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
                 <!-- Topbar -->
@@ -60,13 +57,13 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third-party plugin that is used to generate the demo table below. For more information about DataTables, please visit the documentation.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Booking</h1>
+                    <p class="mb-4">Efficient tool for scheduling and managing all billiard table reservations in your store.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold text-primary">Booking Order Tabel</h5>
+                            <h5 class="m-0 font-weight-bold text-primary">Billiard Table Reservations Tabel</h5>
                             <a href="{{ url('addbooking') }}" class="btn btn-primary">Add Booking Order</a>
                         </div>
                         <div class="card-body">
@@ -111,7 +108,7 @@
                                         <tr>
                                             <td>{{ $bookings->customer_name }}</td>
                                             <td>{{ $bookings->table_name }}</td>
-                                            <td>{{ $bookings->category}}</td>
+                                            <td>{{ $bookings->category }}</td>
                                             <td>{{ $bookings->booking_date }}</td>
                                             <td>{{ $bookings->start_time }}</td>
                                             <td>{{ $bookings->end_time }}</td>
@@ -124,7 +121,7 @@
                                             <td>{{ $bookings->created_at }}</td>
                                             <td>{{ $bookings->updated_at }}</td>
                                             <td>
-                                                <a href="{{url('editbooking', $bookings->id)}}" class="btn btn-info btn-circle btn-sm edit-btn">
+                                                <a href="{{ url('editbooking', $bookings->id) }}" class="btn btn-info btn-circle btn-sm edit-btn">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
                                                 <a href="{{ url('deletebooking', $bookings->id) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
@@ -187,19 +184,20 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
+    <!-- SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script type="text/javascript">
         function confirmation(ev) {
             ev.preventDefault();
             var urlToRedirect = ev.currentTarget.getAttribute('href');
-            console.log(urlToRedirect);
             swal({
                 title: "Are you sure you want to delete this?",
                 text: "This action cannot be undone.",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
-            })
-            .then((willDelete) => {
+            }).then((willDelete) => {
                 if (willDelete) {
                     window.location.href = urlToRedirect;
                 }
@@ -207,38 +205,9 @@
         }
 
         $(document).ready(function() {
-            function bindModalEvents() {
-            $('#editProductModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var id = button.data('id'); // Extract product ID from data-id attribute
-                var title = button.data('title'); // Extract product title from data-title attribute
-                var description = button.data('description'); // Extract product description
-                var price = button.data('price'); // Extract product price
-                var quantity = button.data('quantity'); // Extract product quantity
-                var category = button.data('category'); // Extract product category
-
-                var modal = $(this);
-                modal.find('.modal-body #editProductId').val(id); // Set the value of the hidden product ID input field in the modal
-                modal.find('.modal-body #editTitle').val(title); // Set the value of the title input field in the modal
-                modal.find('.modal-body #editDescription').val(description); // Set the value of the description input field
-                modal.find('.modal-body #editPrice').val(price); // Set the value of the price input field
-                modal.find('.modal-body #editQuantity').val(quantity); // Set the value of the quantity input field
-                modal.find('.modal-body #editCategory').val(category); // Set the value of the category input field
-            });
-        }
-
-
-            var table = $('#Table').DataTable();
-            bindModalEvents();
-
-            table.on('draw', function () {
-                bindModalEvents(); // Re-bind the event handlers after each draw
-            });
+            $('#Table').DataTable();
         });
     </script>
-
-    <!-- SweetAlert -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

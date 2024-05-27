@@ -60,13 +60,14 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third-party plugin that is used to generate the demo table below. For more information about DataTables, please visit the documentation.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Order List Food & Drink</h1>
+                    <p class="mb-4">Dashboard for overseeing and managing all food and drink orders in your store.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold text-primary">Order List Food & Drink</h5>
+                            <h5 class="m-0 font-weight-bold text-primary">Order List Food & Drink Tabel</h5>
+                            <a href="{{ url('addorderproduct') }}" class="btn btn-primary">Add Order Product</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -104,16 +105,16 @@
                                     <tbody>
                                         @foreach ($orderproduct as $orderproducts)
                                         <tr>
-                                            <td>
-                                                <img height="120" width="120" src="/products/{{$products->image}}">
-                                            </td>
                                             <td>{{ $orderproducts->customer_name }}</td>
                                             <td>{{ $orderproducts->product_name }}</td>
                                             <td>{{ $orderproducts->category }}</td>
                                             <td>{{ $orderproducts->quantity}}</td>
-                                            <td>{{ $orderproducts->total }}</td>
+                                            <td>{{ $orderproducts->price }}</td>
                                             <td>{{ $orderproducts->payment_method}}</td>
-                                            <td>{{ $orderproducts->payment_proof}}</td>
+                                            <td>
+                                                <img height="120" width="120" src="/invoice/{{$orderproducts->payment_proof}}">
+                                            </td>
+
                                             <td>{{ $orderproducts->status}}</td>
                                             <td>{{ $orderproducts->created_at }}</td>
                                             <td>{{ $orderproducts->updated_at }}</td>

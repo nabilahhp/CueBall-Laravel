@@ -26,13 +26,12 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Add Booking</h1>
-                    <p class="mb-4">Fill in the details below to add a new booking.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Add Reservation</h1>
+                    <p class="mb-4">A user-friendly interface designed to facilitate quick and accurate creation of new billiard table reservations.</p>
                     
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold text-primary">Add Booking</h5>
                         </div>
                         <div class="card-body">
                             <form action="{{url('uploadbooking')}}" method="post" enctype="multipart/form-data">
@@ -86,11 +85,11 @@
                                 <div class="mb-4">
                                     <label>Status</label>
                                     <select name="status" class="form-control bg-light border-0 small" required>
-                                        <option value="pending">Pending</option>
-                                        <option value="confirmed">Confirmed</option>
-                                        <option value="completed">Completed</option>
-                                        <option value="cancelled">Cancelled</option>
-                                        <option value="payment_confirmation_in_progress">Payment Confirmation in Progress</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="Cancelled" >Cancelled</option>
+                                        <option value="On Progress"> On Progress</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">

@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('admin/dashboard', [HomeController::class, 'index'])-> middleware(['auth','admin']);
+Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard')->middleware(['auth','admin']);
 Route::get('category', [AdminController::class, 'category'])-> middleware(['auth','admin']);
 Route::post('addcategory', [AdminController::class, 'addcategory'])-> middleware(['auth','admin']);
 Route::get('deletecategory/{id}', [AdminController::class, 'deletecategory'])-> middleware(['auth','admin']);
@@ -53,6 +53,8 @@ Route::post('updatecustomer/{id}', [AdminController::class, 'updatecustomer'])->
 Route::get('deletecustomer/{id}', [AdminController::class, 'deletecustomer'])-> middleware(['auth','admin']);
 
 Route::get('orderproduct', [AdminController::class, 'orderproduct'])-> middleware(['auth','admin']);
+Route::get('addorderproduct', [AdminController::class, 'addorderproduct'])-> middleware(['auth','admin']);
+Route::post('uploadorderproduct', [AdminController::class, 'uploadorderproduct'])-> middleware(['auth','admin']);
 Route::get('editorderproduct/{id}', [AdminController::class, 'editorderproduct'])-> middleware(['auth','admin']);
 Route::post('updateorderproduct/{id}', [AdminController::class, 'updateorderproduct'])-> middleware(['auth','admin']);
 Route::get('deleteorderproduct/{id}', [AdminController::class, 'deleteorderproduct'])-> middleware(['auth','admin']);
@@ -63,3 +65,20 @@ Route::post('uploadbooking', [AdminController::class, 'uploadbooking'])-> middle
 Route::get('editbooking/{id}', [AdminController::class, 'editbooking'])-> middleware(['auth','admin']);
 Route::post('updatebooking/{id}', [AdminController::class, 'updatebooking'])-> middleware(['auth','admin']);
 Route::get('deletebooking/{id}', [AdminController::class, 'deletebooking'])-> middleware(['auth','admin']);
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+Route::get('income', [AdminController::class, 'income'])-> middleware(['auth','admin']);
+
+
+Route::get('expenses', [AdminController::class, 'expenses'])-> middleware(['auth','admin']);
+Route::get('addexpenses', [AdminController::class, 'addexpenses'])-> middleware(['auth','admin']);
+Route::post('uploadexpenses', [AdminController::class, 'uploadexpenses'])-> middleware(['auth','admin']);
+Route::get('editexpenses/{id}', [AdminController::class, 'editexpenses'])-> middleware(['auth','admin']);
+Route::post('updateexpenses/{id}', [AdminController::class, 'updateexpenses'])-> middleware(['auth','admin']);
+Route::get('deleteexpenses/{id}', [AdminController::class, 'deleteexpenses'])-> middleware(['auth','admin']);

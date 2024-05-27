@@ -60,8 +60,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third-party plugin that is used to generate the demo table below. For more information about DataTables, please visit the documentation.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Billiard Table Data</h1>
+                    <p class="mb-4">Resource for viewing and analyzing all data related to your store’s billiard tables.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
