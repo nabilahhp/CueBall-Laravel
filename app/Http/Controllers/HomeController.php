@@ -18,11 +18,11 @@ class HomeController extends Controller
     $bookingcount = Booking::count();
     $orderproductcount = OrderProduct::count();
     $totalorders = $bookingcount + $orderproductcount;
+
     $completedbooking = Booking::where('status', 'completed')->count();
     $completedorderproduct = OrderProduct::where('status', 'completed')->count();
-    $totaltasks = $bookingcount + $orderproductcount;
     $completedtasks = $completedbooking + $completedorderproduct;
-    $progress = $totaltasks > 0 ? ($completedtasks / $totaltasks) * 100 : 0;
+   
     $totaltables = Table::count();
     $totalproducts = Product::count();
     $totalitems = $totaltables + $totalproducts;
@@ -30,7 +30,7 @@ class HomeController extends Controller
     $orderproduct = OrderProduct::select('id', 'customer_name', 'product_name as ordered_items', 'category', 'price', 'created_at', 'updated_at', 'status')->get();
     $booking = Booking::select('id', 'customer_name', 'table_name as ordered_items', 'category', 'price', 'created_at', 'updated_at', 'status')->get();
     $orderlist = $orderproduct->merge($booking);
-    return view('admin.index', compact('orderlist', 'usercount', 'totalorders', 'progress', 'totalitems'));
+    return view('admin.index', compact('orderlist', 'usercount', 'totalorders', 'completedtasks', 'totalitems'));
 }
 
 }
