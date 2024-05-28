@@ -56,13 +56,15 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    @include('admin.heading')
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800"> Admin Dashboard</h1>
+                    </div>
                     
                     <!-- Content Row -->
                     @include('admin.content')
 
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third-party plugin that is used to generate the demo table below. For more information about DataTables, please visit the documentation.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Recent Order List</h1>
+                    <p class="mb-4">provides a detailed and searchable list of the most recent orders placed within the system.</p>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
@@ -84,7 +86,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-<th>Customer Name</th>
+                                            <th>Customer Name</th>
                                             <th>Ordered Items</th>
                                             <th>Category</th>
                                             <th>Total</th>
