@@ -12,7 +12,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{url('admin/dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -110,7 +110,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Addons
+        Users
     </div>
 
     <!-- Nav Item - User -->
