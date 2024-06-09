@@ -20,6 +20,7 @@ class AdminController extends Controller
         $data = Category::all();
         return view('admin.category', compact('data'));
     } 
+
     public function addcategory(Request $request)
     {
         $request->validate([
@@ -32,6 +33,7 @@ class AdminController extends Controller
         toastr()->success('Category Added Successfully.');
         return redirect()->back();
     }
+
     public function deletecategory($id)
     {
         $data = Category::find($id);
@@ -63,9 +65,10 @@ class AdminController extends Controller
 
     public function product()
     {
-        $product = Product::all();
-        return view('admin.product', compact('product'));
+        $makanan = Product::all();
+        return view('admin.product', compact('makanan'));
     } 
+
     public function addproduct()
     {
         $category = Category::all();
@@ -74,31 +77,38 @@ class AdminController extends Controller
 
     public function deleteproduct($id)
     {
-        $data = Product::find($id);
+    try {
+        $data = Product::findOrFail($id);
         $data->delete();
         toastr()->addSuccess(' Product Deleted Successfully.');
-        return redirect()->back();
+    } catch (\Exception $e) {
+        toastr()->addError(' Error: ' . $e->getMessage());
     }
+    return redirect()->back();
+    }
+
+
     public function editproduct($id)
     {
-        $data = Product::find($id);
+        $data = Product::findOrFail($id);
         $category = Category::all();
         return view('admin.editproduct', compact('data','category'));
     }
+
     public function uploadproduct(Request $request)
     {
         $data = new Product;
-        $data->title = $request->title;
-        $data->description = $request->description;
-        $data->price = $request->price;
+        $data->nm = $request->nm;
+        $data->deskripsi = $request->deskripsi;
+        $data->harga = $request->harga;
         $data->quantity = $request->quantity;
         $data->category = $request->category;
-        $image = $request->image;
+        $image = $request->foto;
         If($image)
         {
             $imagename = time().'.'.$image->getClientOriginalExtension();
-            $request->image->move('products',$imagename);
-            $data->image = $imagename;
+            $request->foto->move('products',$imagename);
+            $data->foto = $imagename;
         }
         $data->save();
         toastr()->addSuccess('Product Added Successfully.');
@@ -107,27 +117,28 @@ class AdminController extends Controller
 
     public function updateproduct(Request $request, $id)
     {
-        $data = Product::find($id);
-        $data->title= $request->title;
-        $data->description= $request->description;
-        $data->price= $request->price;
+        $data = Product::findOrFail($id);
+        $data->nm = $request->nm;
+        $data->deskripsi= $request->deskripsi;
+        $data->harga= $request->harga;
         $data->quantity= $request->quantity;
         $data->category= $request->category;
-        $image = $request->image;
+        $image = $request->foto;
         if($image)
         {
             $imagename = time().'.'.$image->getClientOriginalExtension();
-            $request->image->move('products',$imagename);
-            $data->image = $imagename;
+            $request->foto->move('products',$imagename);
+            $data->foto = $imagename;
         }
         $data->save();
         toastr()->addSuccess('Product Updated Successfully.');
         return redirect('/product');
     }
 
+
     public function table()
     {
-        $table = Table::all();
+        $meja = Table::all();
         return view('admin.table', compact('table'));
     } 
 

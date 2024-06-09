@@ -99,23 +99,23 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($product as $products)
+                                        @foreach ($makanan as $makanan)
                                         <tr>
                                             <td>
-                                                <img height="120" width="120" src="/products/{{$products->image}}">
+                                                <img height="120" width="120" src="/products/{{$makanan->foto}}">
                                             </td>
-                                            <td>{{ $products->title }}</td>
-                                            <td>{{ $products->description }}</td>
-                                            <td>{{ $products->price }}</td>
-                                            <td>{{ $products->quantity }}</td>
-                                            <td>{{ $products->category }}</td>
-                                            <td>{{ $products->created_at }}</td>
-                                            <td>{{ $products->updated_at }}</td>
+                                            <td>{{ $makanan->nm }}</td>
+                                            <td>{{ $makanan->deskripsi }}</td>
+                                            <td>{{ $makanan->harga }}</td>
+                                            <td>{{ $makanan->quantity }}</td>
+                                            <td>{{ $makanan->category }}</td>
+                                            <td>{{ $makanan->created_at }}</td>
+                                            <td>{{ $makanan->updated_at }}</td>
                                             <td>
-                                                <a href="{{url('editproduct', $products->id)}}" class="btn btn-info btn-circle btn-sm edit-btn">
+                                                <a href="{{url('editproduct', $makanan->idmakanan)}}" class="btn btn-info btn-circle btn-sm edit-btn">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
-                                                <a href="{{ url('deleteproduct', $products->id) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
+                                                <a href="{{ url('deleteproduct', $makanan->idmakanan) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </td>

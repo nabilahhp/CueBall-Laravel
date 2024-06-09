@@ -31,19 +31,19 @@
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
                         </div>
                         <div class="card-body">
-                            <form action="{{url('updateproduct',$data->id)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('updateproduct',$data->idmakanan)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-4">
                                     <label>Product Title</label>
-                                    <input type="text" name="title" class="form-control bg-light border-0 small" value="{{$data->title}}">
+                                    <input type="text" name="nm" class="form-control bg-light border-0 small" value="{{$data->nm}}">
                                 </div>
                                 <div class="mb-4">
                                     <label>Description</label>
-                                    <input type="text" name="description" class="form-control bg-light border-0 small" value="{{$data->description}}">
+                                    <input type="text" name="deskripsi" class="form-control bg-light border-0 small" value="{{$data->deskripsi}}">
                                 </div>
                                 <div class="mb-4">
                                     <label>Price</label>
-                                    <input type="text" name="price" class="form-control bg-light border-0 small" value="{{$data->price}}">
+                                    <input type="text" name="harga" class="form-control bg-light border-0 small" value="{{$data->harga}}">
                                 </div>
                                 <div class="mb-4">
                                     <label>Quantity</label>
@@ -60,11 +60,11 @@
                                 </div>
                                 <div class="mb-4">
                                     <label>Current Image</label>
-                                    <img width="150" src="/products/{{$data->image}}">
+                                    <img width="150" src="/products/{{$data->foto}}">
                                 </div>
                                 <div class="mb-4">
                                     <label>New Image</label>
-                                    <input type="file" name="image" class="form-control bg-light border-0 small" accept="image/*" placeholder="Upload new image">
+                                    <input type="file" name="foto" class="form-control bg-light border-0 small" accept="image/*" placeholder="Upload new image">
                                 </div>
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">Update Product</button>

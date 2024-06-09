@@ -37,15 +37,15 @@
                                 @csrf
                                 <div class="mb-4">
                                 <label>Product Title</label>
-                                <input type="text" name="title" class="form-control bg-light border-0 small" placeholder="Add title product">
+                                <input type="text" name="nm" class="form-control bg-light border-0 small" placeholder="Add title product">
                                 </div>
                                 <div class="mb-4">
                                 <label>Description</label>
-                                <input type="text" name="description" class="form-control bg-light border-0 small" placeholder="Add description">
+                                <input type="text" name="deskripsi" class="form-control bg-light border-0 small" placeholder="Add description">
                                 </div>
                                 <div class="mb-4">
                                 <label>Price</label>
-                                <input type="text" name="price" class="form-control bg-light border-0 small" placeholder="Add product price">
+                                <input type="text" name="harga" class="form-control bg-light border-0 small" placeholder="Add product price">
                                 </div>
                                 <div class="mb-4">
                                 <label>Quantity</label>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="mb-4">
                                 <label>Image</label>
-                                <input type="file" name="image" class="form-control bg-light border-0 small" placeholder="Add product price">
+                                <input type="file" name="foto" class="form-control bg-light border-0 small" placeholder="Add product price">
                                 </div>
                                 <div class="mb-4">
                                     <button class="btn btn-primary" type="submit">Add Product</button>
