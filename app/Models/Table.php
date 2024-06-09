@@ -15,4 +15,25 @@ class Table extends Model
      * @var string
      */
     protected $table = 'meja'; // Ubah menjadi 'meja'
+
+    /**
+     * Kunci utama tabel.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'idmeja';
+
+    /**
+     * Indikasi apakah kunci utama adalah auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true; // Sesuaikan dengan apakah kunci utama Anda auto-increment atau tidak
+
+    /**
+     * Tipe data kunci utama.
+     *
+     * @var string
+     */
+    protected $keyType = 'int';
 }

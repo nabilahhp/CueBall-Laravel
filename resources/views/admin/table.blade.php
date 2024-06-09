@@ -74,7 +74,9 @@
                                 <table id="Table" class="table table-bordered" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Image</th>
                                             <th>Table Name</th>
+                                            <th>Description</th>
                                             <th>Capacity</th>
                                             <th>Category</th>
                                             <th>Price</th>
@@ -86,7 +88,9 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Image</th>
                                             <th>Table Name</th>
+                                            <th>Description</th>
                                             <th>Capacity</th>
                                             <th>Category</th>
                                             <th>Price</th>
@@ -97,20 +101,24 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                @foreach ($table as $tables)
+                                @foreach ($meja as $meja)
                                 <tr>
-                                <td>{{ $tables->name }}</td>
-                                <td>{{ $tables->capacity }}</td>
-                                <td>{{ $tables->category }}</td>
-                                <td>{{ $tables->price }}</td>
-                                <td>{{ $tables->status }}</td>
-                                <td>{{ $tables->created_at }}</td>
-                                <td>{{ $tables->updated_at }}</td>
                                 <td>
-                                    <a href="{{url('edittable', $tables->id)}}" class="btn btn-info btn-circle btn-sm edit-btn">
+                                    <img height="120" width="120" src="/tables/{{$meja->foto}}">
+                                </td>
+                                <td>{{ $meja->nm }}</td>
+                                <td>{{ $meja->ket }}</td>
+                                <td>{{ $meja->capacity }}</td>
+                                <td>{{ $meja->category }}</td>
+                                <td>{{ $meja->harga }}</td>
+                                <td>{{ $meja->status }}</td>
+                                <td>{{ $meja->created_at }}</td>
+                                <td>{{ $meja->updated_at }}</td>
+                                <td>
+                                    <a href="{{url('edittable', $meja->idmeja)}}" class="btn btn-info btn-circle btn-sm edit-btn">
                                         <i class="fas fa-pen"></i>
                                     </a>
-                                    <a href="{{url('deletetable', $tables->id)}}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
+                                    <a href="{{url('deletetable', $meja->idmeja)}}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

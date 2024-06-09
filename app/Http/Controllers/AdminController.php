@@ -87,7 +87,6 @@ class AdminController extends Controller
     return redirect()->back();
     }
 
-
     public function editproduct($id)
     {
         $data = Product::findOrFail($id);
@@ -139,7 +138,7 @@ class AdminController extends Controller
     public function table()
     {
         $meja = Table::all();
-        return view('admin.table', compact('table'));
+        return view('admin.table', compact('meja'));
     } 
 
     public function addtable()
@@ -149,38 +148,56 @@ class AdminController extends Controller
     }
 
     public function uploadtable(Request $request)
-    {
-        $data = new Table;
-        $data->name = $request->name;
-        $data->capacity = $request->capacity;
-        $data->category = $request->category;
-        $data->price = $request->price;
-        $data->status = $request->status;
-        $data->save();
-        toastr()->addSuccess('Table Added Successfully.');
-        return redirect('/table');  
+{
+    $data = new Table;
+
+    $data->nm = $request->nm;
+    $data->ket = $request->ket;
+    $data->capacity = $request->capacity;
+    $data->category = $request->category;
+    $data->harga = $request->harga;
+    $data->status = $request->status;
+    $image = $request->foto;
+    if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+        $imagename = time().'.'.$image->getClientOriginalExtension();
+        $image->move('tables', $imagename);
+        $data->foto = $imagename;
     }
+    $data->save();
+    toastr()->addSuccess('Table Added Successfully.');
+    return redirect('/table');
+    }
+
     public function edittable($id)
     {
-        $data = Table::find($id);
+        $data = Table::findOrFail($id);
         $category = Category::all();
         return view('admin.edittable', compact('data','category'));
     }
+
     public function updatetable(Request $request, $id)
     {
-        $data = Table::find($id);
-        $data->name = $request->name;
+        $data = Table::findOrFail($id);
+        $data->nm = $request->nm;
+        $data->ket = $request->ket;
         $data->capacity = $request->capacity;
         $data->category = $request->category;
-        $data->price = $request->price;
+        $data->harga = $request->harga;
         $data->status = $request->status;
+        $image = $request->foto;
+        if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+            $image->move('tables', $imagename);
+            $data->foto = $imagename;
+        }
         $data->save();
         toastr()->addSuccess('Table Added Successfully.');
         return redirect('/table');  
     }
+    
     public function deletetable($id)
     {
-        $data = Table::find($id);
+        $data = Table::findOrFail($id);
         $data->delete();
         toastr()->addSuccess(' Table Deleted Successfully.');
         return redirect()->back();

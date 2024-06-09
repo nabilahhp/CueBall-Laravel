@@ -33,11 +33,15 @@
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
                         </div>
                         <div class="card-body">
-                            <form action="{{url('uploadtable')}}" method="post">
+                            <form action="{{url('uploadtable')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-4">
                                     <label>Table Name</label>
-                                    <input type="text" name="name" class="form-control bg-light border-0 small" placeholder="Add table name" required>
+                                    <input type="text" name="nm" class="form-control bg-light border-0 small" placeholder="Add table name" required>
+                                </div>
+                                <div class="mb-4">
+                                <label>Description</label>
+                                <input type="text" name="ket" class="form-control bg-light border-0 small" placeholder="Add description">
                                 </div>
                                 <div class="mb-4">
                                     <label>Capacity</label>
@@ -54,7 +58,7 @@
                             </div>
                             <div class="mb-4">
                                     <label>Price</label>
-                                    <input type="text" name="price" class="form-control bg-light border-0 small" placeholder="Add table price" required>
+                                    <input type="text" name="harga" class="form-control bg-light border-0 small" placeholder="Add table price" required>
                                 </div>
                             <div class="mb-4">
                                 <label>Status</label>
@@ -63,7 +67,10 @@
                                     <option value="Unavailable">Unavailable</option>
                                 </select>
                             </div>
-                            
+                            <div class="mb-4">
+                                <label>Image</label>
+                                <input type="file" name="foto" class="form-control bg-light border-0 small" placeholder="Add product price">
+                            </div>
                             <div class="mb-4">
                                 <button class="btn btn-primary" type="submit">Add Table</button>
                             </div>

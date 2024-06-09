@@ -31,11 +31,15 @@
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
                         </div>
                         <div class="card-body">
-                            <form action="{{url('updatetable',$data->id)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('updatetable',$data->idmeja)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-4">
                                     <label>Table Name</label>
-                                    <input type="text" name="name" class="form-control bg-light border-0 small" placeholder="Add table name" value="{{$data->name}}" required>
+                                    <input type="text" name="nm" class="form-control bg-light border-0 small" placeholder="Add table name" value="{{$data->nm}}" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label>Description</label>
+                                    <input type="ket" name="ket" class="form-control bg-light border-0 small" value="{{$data->ket}}">
                                 </div>
                                 <div class="mb-4">
                                     <label>Capacity</label>
@@ -43,7 +47,7 @@
                                 </div>
                                 <div class="mb-4">
                                     <label>Price</label>
-                                    <input type="text" name="price" class="form-control bg-light border-0 small" placeholder="Add table price" value="{{$data->price}}" required>
+                                    <input type="text" name="harga" class="form-control bg-light border-0 small" placeholder="Add table price" value="{{$data->harga}}" required>
                                 </div>
                             <div class="mb-4">
                                 <label>Status</label>
@@ -60,6 +64,14 @@
                                     <option value="{{$category->category_name}}">{{$category->category_name}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="mb-4">
+                                <label>Current Image</label>
+                                <img width="150" src="/tables/{{$data->foto}}">
+                            </div>
+                            <div class="mb-4">
+                                <label>New Image</label>
+                                <input type="file" name="foto" class="form-control bg-light border-0 small" accept="image/*" placeholder="Upload new image">
                             </div>
                             <div class="mb-4">
                                 <button class="btn btn-primary" type="submit">Update Table</button>
