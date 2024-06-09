@@ -31,45 +31,27 @@
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
                         </div>
                         <div class="card-body">
-                            <form action="{{url('updateorderproduct',$data->id)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{url('updateorderproduct',$data->idpesan)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-4">
                                     <label>Name</label>
-                                    <input type="text" name="customer_name" class="form-control bg-light border-0 small" value="{{$data->customer_name}}">
+                                    <input type="text" name="nama" class="form-control bg-light border-0 small" value="{{$data->nama}}">
                                 </div>
                                 <div class="mb-4">
-                                    <label>Product Title</label>
-                                    <select name="product_name" class="form-control bg-light border-0 small" required>
-                                        <option value="{{$data->product_name}}">{{$data->product_name}}</option>
-                                        @foreach($product as $products)
-                                        <option value="{{$products->title}}">{{$products->title}}</option>
-                                        @endforeach
-                                    </select>
+                                    <label>Handphone</label>
+                                    <input type="text" name="hp" class="form-control bg-light border-0 small" value="{{$data->hp}}">
                                 </div>
                                 <div class="mb-4">
-                                    <label for="category">Category</label>
-                                    <select id="category" name="category" class="form-control bg-light border-0 small" required>
-                                        <option value="{{$data->category}}">{{$data->category}}</option>
-                                        @foreach($category as $category)
-                                        <option value="{{$category->category_name}}">{{$category->category_name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <label>Table</label>
+                                    <input type="text" name="meja" class="form-control bg-light border-0 small" value="{{$data->meja}}">
                                 </div>
                                 <div class="mb-4">
-                                    <label>Quantity</label>
-                                    <input type="number" name="quantity" class="form-control bg-light border-0 small" value="{{$data->quantity}}">
+                                    <label>Total Products</label>
+                                    <input type="text" name="total_products" class="form-control bg-light border-0 small" value="{{$data->total_products}}">
                                 </div>
                                 <div class="mb-4">
-                                    <label>Total</label>
-                                    <input type="text" name="price" class="form-control bg-light border-0 small" value="{{$data->price}}">
-                                </div>
-                                <div class="mb-4">
-                                    <label>Payment Method</label>
-                                    <input type="text" name="payment_method" class="form-control bg-light border-0 small" value="{{$data->payment_method}}">
-                                </div>
-                                <div class="mb-4">
-                                    <label>Payment Proof</label>
-                                    <img width="150" src="/invoice/{{$data->payment_proof}}" data-toggle="modal" data-target="#paymentProofModal">
+                                    <label>Total Price</label>
+                                    <input type="text" name="total_price" class="form-control bg-light border-0 small" value="{{$data->total_price}}">
                                 </div>
                                 <div class="mb-4">
                                 <label>Status</label>

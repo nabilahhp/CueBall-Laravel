@@ -65,64 +65,48 @@
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold text-primary">Order List Food & Drink Tabel</h5>
-                            <a href="{{ url('addorderproduct') }}" class="btn btn-primary">Add Order Product</a>
-                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="Table" class="table table-bordered" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Date</th>
                                             <th>Name</th>
-                                            <th>Product Title</th>
-                                            <th>Category</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Payment Method</th>
-                                            <th>Payment Proof</th>
+                                            <th>Handphone</th>
+                                            <th>Table</th>
+                                            <th>Total Product</th>
+                                            <th>Total Price</th>
                                             <th>Status</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Date</th>
                                             <th>Name</th>
-                                            <th>Product Title</th>
-                                            <th>Category</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                            <th>Payment Method</th>
-                                            <th>Payment Proof</th>
+                                            <th>Handphone</th>
+                                            <th>Table</th>
+                                            <th>Total Product</th>
+                                            <th>Total Price</th>
                                             <th>Status</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach ($orderproduct as $orderproducts)
                                         <tr>
-                                            <td>{{ $orderproducts->customer_name }}</td>
-                                            <td>{{ $orderproducts->product_name }}</td>
-                                            <td>{{ $orderproducts->category }}</td>
-                                            <td>{{ $orderproducts->quantity}}</td>
-                                            <td>{{ $orderproducts->price }}</td>
-                                            <td>{{ $orderproducts->payment_method}}</td>
-                                            <td>
-                                                <img height="120" width="120" src="/invoice/{{$orderproducts->payment_proof}}">
-                                            </td>
-
+                                            <td>{{ $orderproducts->tgl_pesan }}</td>
+                                            <td>{{ $orderproducts->nama }}</td>
+                                            <td>{{ $orderproducts->hp }}</td>
+                                            <td>{{ $orderproducts->meja	}}</td>
+                                            <td>{{ $orderproducts->total_products }}</td>
+                                            <td>{{ $orderproducts->total_price}}</td>
                                             <td>{{ $orderproducts->status}}</td>
-                                            <td>{{ $orderproducts->created_at }}</td>
-                                            <td>{{ $orderproducts->updated_at }}</td>
                                             <td>
-                                                <a href="{{url('editorderproduct', $orderproducts->id)}}" class="btn btn-info btn-circle btn-sm edit-btn">
+                                                <a href="{{url('editorderproduct', $orderproducts->idpesan)}}" class="btn btn-info btn-circle btn-sm edit-btn">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
-                                                <a href="{{ url('deleteorderproduct', $orderproducts->id) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
+                                                <a href="{{ url('deleteorderproduct', $orderproducts->idpesan) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </td>

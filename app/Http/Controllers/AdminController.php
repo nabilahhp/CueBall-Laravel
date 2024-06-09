@@ -11,6 +11,8 @@ use App\Models\OrderProduct;
 use App\Models\Booking;
 use App\Models\Expenses;
 use App\Models\Income;
+use App\Models\Pesan;
+use App\Models\Bayarmkn;
 
 class AdminController extends Controller
 {
@@ -150,7 +152,6 @@ class AdminController extends Controller
     public function uploadtable(Request $request)
 {
     $data = new Table;
-
     $data->nm = $request->nm;
     $data->ket = $request->ket;
     $data->capacity = $request->capacity;
@@ -194,7 +195,7 @@ class AdminController extends Controller
         toastr()->addSuccess('Table Added Successfully.');
         return redirect('/table');  
     }
-    
+
     public function deletetable($id)
     {
         $data = Table::findOrFail($id);
@@ -305,81 +306,39 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+
     public function orderproduct()
     {
-        $orderproduct = OrderProduct::all();
-        return view('admin.orderproduct', compact('orderproduct'));
+    $orderproduct = Pesan::all();
+    return view('admin.orderproduct', compact('orderproduct'));
     }
-    public function addorderproduct()
-    {
-        $category = Category::all();
-        $customer = User::where('usertype', 'user')->get();
-        $product = Product::all();
-
-        return view('admin.addorderproduct', compact('category', 'product', 'customer'));
-    }
-
-    public function uploadorderproduct(Request $request)
-    {
-    $data = new OrderProduct();
-    $data->customer_name = $request->customer_name;
-    $data->category = $request->category;
-    $data->product_name = $request->product_name;
-    $data->quantity = $request->quantity;
-    $data->price = $request->price;
-    $data->payment_method = $request->payment_method;
-    $data->status = $request->status;
-
-    if ($request->hasFile('payment_proof')) {
-        $image = $request->file('payment_proof');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('invoice'), $imageName);
-        $data->payment_proof = $imageName;
-    }
-
-    $data->save();
-    toastr()->success('Product Uploaded Successfully.');
-    return redirect('/orderproduct');   
-}
-
-
-
+    
     public function editorderproduct($id)
     {
-        $data = OrderProduct::find($id);
-        $orderproduct = OrderProduct::all();
-        $product = Product::all();
-        $category = Category::all();
-        return view('admin.editorderproduct', compact('data','category','product','orderproduct'));
+        $data = OrderProduct::findOrFail($id);
+        return view('admin.editorderproduct', compact('data'));
     }
 
     public function updateorderproduct(Request $request, $id)
     {
-        $data = OrderProduct::find($id);
-        $data->customer_name = $request->customer_name;
-        $data->category = $request->category;
-        $data->product_name = $request->product_name;
-        $data->quantity = $request->quantity;
-        $data->price = $request->price;
-        $data->payment_method = $request->payment_method;
+        $data = OrderProduct::findOrFail($id);
+        $data->tgl_pesan = $request->tgl_pesan;
+        $data->nama = $request->nama;
+        $data->hp = $request->hp;
+        $data->meja = $request->meja;
+        $data->total_products = $request->total_products;
+        $data->total_price = $request->total_price;
         $data->status = $request->status;
-        $image = $request->payment_proof;
-        If($image)
-        {
-            $imagename = time().'.'.$image->getClientOriginalExtension();
-            $request->payment_proof->move('invoice',$imagename);
-            $data->payment_proof = $imagename;
-        }
         $data->save();
-        toastr()->addSuccess('Product Updated Successfully.');
+        toastr()->addSuccess('Order Product Updated Successfully.');
         return redirect('/orderproduct');   
     }
 
     public function deleteorderproduct($id)
     {
-        $data = OrderProduct::find($id);
+        $data = OrderProduct::findOrFail($id);
         $data->delete();
-        toastr()->addSuccess(' Product Deleted Successfully.');
+        toastr()->addSuccess('Order Product Deleted Successfully.');
         return redirect()->back();
     }
 
@@ -462,8 +421,6 @@ class AdminController extends Controller
                 toastr()->addSuccess('Booking Updated Successfully.');
                 return redirect('/booking');
             }
-
-    
 
     public function deletebooking($id)
     {
