@@ -102,24 +102,39 @@ class AdminController extends Controller
     }
 
     public function uploadproduct(Request $request)
-    {
-        $data = new Product;
-        $data->nm = $request->nm;
-        $data->deskripsi = $request->deskripsi;
-        $data->harga = $request->harga;
-        $data->quantity = $request->quantity;
-        $data->category = $request->category;
-        $image = $request->foto;
-        If($image)
-        {
-            $imagename = time().'.'.$image->getClientOriginalExtension();
-            $request->foto->move('products',$imagename);
-            $data->foto = $imagename;
-        }
-        $data->save();
-        toastr()->addSuccess('Product Added Successfully.');
-        return redirect('/product');  
+{
+    $data = new Product;
+    $data->nm = $request->nm;
+    $data->deskripsi = $request->deskripsi;
+    $data->harga = $request->harga;
+    $data->quantity = $request->quantity;
+    $data->category = $request->category;
+    
+    $image = $request->file('foto'); // Menggunakan file() untuk mengambil file
+
+    if ($image) {
+        // Generate nama unik untuk file gambar
+        $imagename = time() . '.' . $image->getClientOriginalExtension();
+        
+        // Tentukan path penyimpanan
+        $destinationPath = 'C:/xampp/htdocs/projek_api/image';
+        
+        // Pindahkan gambar ke path tujuan
+        $image->move($destinationPath, $imagename);
+        
+        // Simpan nama file gambar ke database
+        $data->foto = $imagename;
     }
+
+    // Simpan data produk ke database
+    $data->save();
+
+    // Tampilkan pesan sukses menggunakan toastr
+    toastr()->addSuccess('Product Added Successfully.');
+    
+    // Redirect ke halaman produk
+    return redirect('/product');  
+}
 
     public function updateproduct(Request $request, $id)
     {

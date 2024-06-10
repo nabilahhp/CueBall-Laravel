@@ -102,7 +102,7 @@
                                         @foreach ($makanan as $makanan)
                                         <tr>
                                             <td>
-                                                <img height="120" width="120" src="/products/{{$makanan->foto}}">
+                                                <img height="120" width="120" src="http://cuebilliard.my.id/projek_api/image/{{$makanan->foto}}">
                                             </td>
                                             <td>{{ $makanan->nm }}</td>
                                             <td>{{ $makanan->deskripsi }}</td>
