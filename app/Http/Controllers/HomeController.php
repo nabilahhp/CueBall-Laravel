@@ -2,33 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\OrderProduct;
-use App\Models\Booking;
+use App\Models\Customer;
 use App\Models\Product;
-use App\Models\User;
 use App\Models\Table;
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Pesan;
+use App\Models\Sewa;
 
 class HomeController extends Controller
 {
-    
     public function index()
-{
-    $usercount = User::count();
-    $bookingcount = Booking::count();
-    $orderproductcount = OrderProduct::count();
-    $totalorders = $bookingcount + $orderproductcount;
+    {
+        // Ambil jumlah user dari tabel users
+        $userCount = Customer::count();
+        $productCount = Product::count();
+        $tableCount = Table::count();
+        $totalOrders = Pesan::count();
+        $totalBookings = Sewa::count();
+        $totalOrderAndBooking = $totalOrders + $totalBookings;
+        
 
-    $completedbooking = Booking::where('status', 'completed')->count();
-    $completedorderproduct = OrderProduct::where('status', 'completed')->count();
-    $completedtasks = $completedbooking + $completedorderproduct;
-   
-    $totaltables = Table::count();
-    $totalproducts = Product::count();
-    $totalitems = $totaltables + $totalproducts;
-
-    
-   
-}
-
+        // Kirim jumlah user ke view
+        return view('admin.index', compact('userCount', 'productCount', 'tableCount', 'totalOrderAndBooking'));
+    }
 }

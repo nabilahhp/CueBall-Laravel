@@ -9,7 +9,7 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Users
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $usercount }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $userCount }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -26,12 +26,12 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Orders
+                            Total Products
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalorders }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $productCount }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <i class="fas fa-utensils fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -44,16 +44,16 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Completed Orders</div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Table</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $completedtasks }}</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $tableCount }}</div>
                             </div>
                             
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        <i class="fas fa-briefcase fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -67,12 +67,12 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Total Items
+                            Total Orders
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalitems }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalOrderAndBooking }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-briefcase fa-2x text-gray-300"></i>
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>

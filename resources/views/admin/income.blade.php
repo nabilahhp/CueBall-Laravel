@@ -61,12 +61,13 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Income</h1>
-                    <p class="mb-4">Your comprehensive dashboard for tracking and managing all revenue streams of your store efficiently.</p>
+                    <p class="mb-4">This is where you can manage and track all your billiard store’s income. The page features a comprehensive table that lists all the income incurred.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold text-primary">Income Table</h5>
+                            <h5 class="m-0 font-weight-bold text-primary">Income Tabel</h5>
+                            <a href="{{ url('addincome') }}" class="btn btn-primary">Add Income</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -74,29 +75,36 @@
                                     <thead>
                                         <tr>
                                             <th>Source</th>
-                                            <th>Category</th>
+                                            <th>Description</th>
                                             <th>Amount</th>
                                             <th>Date</th>
-                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Source</th>
-                                            <th>Category</th>
+                                            <th>Description</th>
                                             <th>Amount</th>
                                             <th>Date</th>
-                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($income as $incomes)
+                                        @foreach ($income as $income)
                                         <tr>
-                                            <td>{{ $incomes->source }}</td>
-                                            <td>{{ $incomes->category }}</td>
-                                            <td>{{ $incomes->amount }}</td>
-                                            <td>{{ $incomes->date }}</td>
-                                            <td>{{ $incomes->status }}</td>
+                                            <td>{{ $income->source }}</td>
+                                            <td>{{ $income->description }}</td>
+                                            <td>{{ $income->amount }}</td>
+                                            <td>{{ $income->date }}</td>
+                                            <td>
+                                                <a href="{{url('editincome', $income->idincome)}}" class="btn btn-info btn-circle btn-sm edit-btn">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <a href="{{ url('deleteincome', $income->idincome) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

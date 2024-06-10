@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard')->middleware(['auth','admin']);
+Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.index')->middleware(['auth','admin']);
 Route::get('category', [AdminController::class, 'category'])-> middleware(['auth','admin']);
 Route::post('addcategory', [AdminController::class, 'addcategory'])-> middleware(['auth','admin']);
 Route::get('deletecategory/{id}', [AdminController::class, 'deletecategory'])-> middleware(['auth','admin']);
@@ -67,6 +67,17 @@ Route::get('editjamsewa/{id}', [AdminController::class, 'editjamsewa'])-> middle
 Route::post('updatebooking/{id}', [AdminController::class, 'updatebooking'])-> middleware(['auth','admin']);
 Route::post('updatejamsewa/{id}', [AdminController::class, 'updatejamsewa'])-> middleware(['auth','admin']);
 Route::get('deletebooking/{id}', [AdminController::class, 'deletebooking'])-> middleware(['auth','admin']);
+Route::get('deletejamsewa/{id}', [AdminController::class, 'deletejamsewa'])-> middleware(['auth','admin']);
+
+Route::get('bayar', [AdminController::class, 'bayar'])-> middleware(['auth','admin']);
+Route::get('editbayar/{id}', [AdminController::class, 'editbayar'])-> middleware(['auth','admin']);
+Route::post('updatebayar/{id}', [AdminController::class, 'updatebayar'])-> middleware(['auth','admin']);
+Route::get('deletebayar/{id}', [AdminController::class, 'deletebayar'])-> middleware(['auth','admin']);
+
+Route::get('bayarmkn', [AdminController::class, 'bayarmkn'])-> middleware(['auth','admin']);
+Route::get('editbayarmkn/{id}', [AdminController::class, 'editbayarmkn'])-> middleware(['auth','admin']);
+Route::post('updatebayarmkn/{id}', [AdminController::class, 'updatebayarmkn'])-> middleware(['auth','admin']);
+Route::get('deletebayarmkn/{id}', [AdminController::class, 'deletebayarmkn'])-> middleware(['auth','admin']);
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -76,7 +87,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 Route::get('income', [AdminController::class, 'income'])-> middleware(['auth','admin']);
-
+Route::get('addincome', [AdminController::class, 'addincome'])-> middleware(['auth','admin']);
+Route::post('uploadincome', [AdminController::class, 'uploadincome'])-> middleware(['auth','admin']);
+Route::get('editincome/{id}', [AdminController::class, 'editincome'])-> middleware(['auth','admin']);
+Route::post('updateincome/{id}', [AdminController::class, 'updateincome'])-> middleware(['auth','admin']);
+Route::get('deleteincome/{id}', [AdminController::class, 'deleteincome'])-> middleware(['auth','admin']);
 
 Route::get('expenses', [AdminController::class, 'expenses'])-> middleware(['auth','admin']);
 Route::get('addexpenses', [AdminController::class, 'addexpenses'])-> middleware(['auth','admin']);

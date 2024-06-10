@@ -8,14 +8,40 @@ use Illuminate\Database\Eloquent\Model;
 class Income extends Model
 {
     use HasFactory;
-    
-    protected $fillable = [
-        'order_id',
-        'source',
-        'category',
-        'amount',
-        'date',
-        'status',
-    ];
+
+    /**
+     * Nama tabel yang digunakan oleh model.
+     *
+     * @var string
+     */
+    protected $table = 'income';
+
+    /**
+     * Kunci utama tabel.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'idincome';
+
+    /**
+     * Indikasi apakah kunci utama adalah auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+    /**
+     * Tipe data kunci utama.
+     *
+     * @var string
+     */
+    protected $keyType = 'int';
+
+    /**
+     * Kolom yang dapat diisi secara massal.
+     *
+     * @var array
+     */
+    protected $fillable = ['source', 'description', 'amount', 'date'];
     
 }

@@ -5,23 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bayarmkn extends Model
+class Bayar extends Model
 {
     use HasFactory;
-    
     /**
      * Nama tabel yang digunakan oleh model.
      *
      * @var string
      */
-    protected $table = 'bayarmkn';
+    protected $table = 'bayar';
 
     /**
      * Kunci utama tabel.
      *
      * @var string
      */
-    protected $primaryKey = 'idbayarmkn';
+    protected $primaryKey = 'idbayar';
 
     /**
      * Indikasi apakah kunci utama adalah auto-incrementing.

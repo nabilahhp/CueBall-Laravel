@@ -76,11 +76,8 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
+                                            <th>Gender</th>
                                             <th>Address</th>
-                                            <th>Type</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -88,31 +85,18 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
+                                            <th>Gender</th>
                                             <th>Address</th>
-                                            <th>Type</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
-                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                 @foreach ($customer as $customers)
                                 <tr>
-                                <td>{{ $customers->name }}</td>
+                                <td>{{ $customers->nama_lengkap }}</td>
                                 <td>{{ $customers->email }}</td>
-                                <td>{{ $customers->phone }}</td>
-                                <td>{{ $customers->address }}</td>
-                                <td>{{ $customers->usertype }}</td>
-                                <td>{{ $customers->created_at }}</td>
-                                <td>{{ $customers->updated_at }}</td>
-                                <td>
-                                    <a href="{{url('editcustomer', $customers->id)}}" class="btn btn-info btn-circle btn-sm edit-btn">
-                                        <i class="fas fa-pen"></i>
-                                    </a>
-                                    <a href="{{url('deletecustomer', $customers->id)}}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
+                                <td>{{ $customers->hp }}</td>
+                                <td>{{ $customers->jenis_kelamin }}</td>
+                                <td>{{ $customers->alamat }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

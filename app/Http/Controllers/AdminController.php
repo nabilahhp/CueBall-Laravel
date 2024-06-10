@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bayar;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
@@ -13,6 +14,7 @@ use App\Models\Expenses;
 use App\Models\Income;
 use App\Models\Pesan;
 use App\Models\Bayarmkn;
+use App\Models\Customer;
 use App\Models\JamSewa;
 use App\Models\Sewa;
 
@@ -243,70 +245,17 @@ class AdminController extends Controller
 
     public function deleteuser($id)
     {
-        $data = Table::find($id);
+        $data = User::find($id);
         $data->delete();
-        toastr()->addSuccess(' Table Deleted Successfully.');
+        toastr()->addSuccess(' User Deleted Successfully.');
         return redirect()->back();
     }
 
 
     public function customer()
     {
-        $customer = User::where('usertype', 'user')->get();
+        $customer = Customer::all();
         return view('admin.customer', compact('customer'));
-    }
-
-    public function editcustomer($id)
-    {
-    $customer = User::find($id);
-    if (!$customer) {
-        return redirect('/customer')->with('error', 'Customer not found.');
-    }
-    return view('admin.editcustomer', compact('customer'));
-    }
-
-    public function updatecustomer(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'usertype' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
-            'address' => 'required|string|max:255',
-        ]);
-
-        $customer = User::find($id);
-
-        if (!$customer) {
-            return redirect('/customer')->with('error', 'Customer not found.');
-        }
-
-        $customer->name = $request->name;
-        $customer->email = $request->email;
-        $customer->usertype = $request->usertype;
-        $customer->phone = $request->phone;
-        $customer->address = $request->address;
-
-        $customer->save();
-
-        toastr()->addSuccess('Customer Updated Successfully.');
-
-        return redirect('/customer');
-    }
-
-    public function deletecustomer($id)
-    {
-        $customer = User::find($id);
-
-        if (!$customer) {
-            return redirect()->back()->with('error', 'Customer not found.');
-        }
-
-        $customer->delete();
-
-        toastr()->addSuccess('Customer Deleted Successfully.');
-
-        return redirect()->back();
     }
 
 
@@ -391,55 +340,155 @@ class AdminController extends Controller
 
     public function deletebooking($id)
     {
-        $data = Booking::findOrFail($id);
+        $sewa = Sewa::findOrFail($id);
+        $sewa->delete();
+        toastr()->addSuccess('Booking Deleted Successfully.');
+        return redirect()->back();
+    }
+
+    public function deletejamsewa($id)
+    {
+        $data = JamSewa::findOrFail($id);
         $data->delete();
         toastr()->addSuccess('Booking Deleted Successfully.');
         return redirect()->back();
     }
 
-    public function income()
-{
-    $orderproduct = OrderProduct::select('id', 'product_name as source', 'category', 'price', 'updated_at', 'status')
-                                  ->where('status', 'completed')
-                                  ->get();
-    $booking = Booking::select('id', 'table_name as source', 'category', 'price', 'updated_at', 'status')
-                       ->where('status', 'completed')
-                       ->get();
-
-    $incomedata = $orderproduct->concat($booking);
-
-    foreach ($incomedata as $data) {
-        // Check if the data already exists in the Income table
-        $existingIncome = Income::where('order_id', $data->id)
-                                ->where('source', $data->source)
-                                ->where('category', $data->category)
-                                ->where('amount', $data->price)
-                                ->where('date', $data->updated_at)
-                                ->where('status', $data->status)
-                                ->first();
-        
-        // If the data does not exist, create a new entry
-        if (!$existingIncome) {
-            Income::create([
-                'order_id' => $data->id,
-                'source' => $data->source,
-                'category' => $data->category,
-                'amount' => $data->price,
-                'date' => $data->updated_at,
-                'status' => $data->status,
-            ]);
-        }
+    public function bayar()
+    {
+    $bayar = Bayar::all();
+    return view('admin.bayar', compact('bayar'));
     }
 
-    // Retrieve all income data
-    $income = Income::all();
+    public function editbayar($id)
+    {
+        $bayar = Bayar::findOrFail($id);
+        return view('admin.editbayar', compact('bayar'));
+    }
 
-    // Return the view with the income data
+    public function updatebayar(Request $request, $id)
+    {   
+        $bayar = Bayar::findOrFail($id);
+        $bayar->tgl_upload = $request->input('tgl_upload');
+        $bayar->konfirmasi = $request->input('konfirmasi');
+        $image = $request->bukti;
+        if($image)
+        {
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+            $request->bukti->move('products',$imagename);
+            $bayar->bukti = $imagename;
+        }
+        $bayar->save();
+
+        toastr()->addSuccess('Payment Updated Successfully.');
+        return redirect('/bayar');
+    }
+
+    public function deletebayar($id)
+    {
+        $bayar = Bayar::findOrFail($id);
+        $bayar->delete();
+        toastr()->addSuccess('Payment Deleted Successfully.');
+        return redirect()->back();
+    }
+
+    public function bayarmkn()
+    {
+    $bayarmkn = Bayarmkn::all();
+    return view('admin.bayarmkn', compact('bayarmkn'));
+    }
+
+    public function editbayarmkn($id)
+    {
+        $bayarmkn = Bayarmkn::findOrFail($id);
+        return view('admin.editbayarmkn', compact('bayarmkn'));
+    }
+
+    public function updatebayarmkn(Request $request, $id)
+    {   
+        $bayarmkn = Bayarmkn::findOrFail($id);
+        $bayarmkn->tgl_upload = $request->input('tgl_upload');
+        $bayarmkn->konfirmasi = $request->input('konfirmasi');
+        $image = $request->bukti;
+        if($image)
+        {
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+            $request->bukti->move('products',$imagename);
+            $bayarmkn->bukti = $imagename;
+        }
+        $bayarmkn->save();
+
+        toastr()->addSuccess('Payment Updated Successfully.');
+        return redirect('/bayarmkn');
+    }
+
+    public function deletebayarmkn($id)
+    {
+        $bayarmkn = Bayarmkn::findOrFail($id);
+        $bayarmkn->delete();
+        toastr()->addSuccess('Payment Deleted Successfully.');
+        return redirect()->back();
+    }
+
+    public function income()
+{
+    $income = Income::all();
     return view('admin.income', compact('income'));
 }
 
+    public function editincome($id)
+    {
+        $income = Income::find($id);
+        return view('admin.editincome',compact('income'));
+    }
 
+    public function addincome()
+    {
+        return view('admin.addincome');
+    }
 
+    public function uploadincome(Request $request)
+    {
+        $income = new Income;
+        $income->source = $request->source;
+        $income->description = $request->description;
+        $income->amount = $request->amount;
+        $income->date = $request->date;
+        $income->save();
+        toastr()->addSuccess('Income Added Successfully.');
+        return redirect('/income');  
+    }
+
+    public function updateincome(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'source' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'amount' => 'required|numeric',
+            'date' => 'required|date',
+        ]);
+
+        // Cari data yang akan diupdate
+        $income = Income::findOrFail($id);
+
+        // Update data
+        $income->update($request->all());
+
+        // Tambahkan pesan sukses
+        toastr()->addSuccess('Income Updated Successfully.');
+        
+        // Redirect ke halaman income
+        return redirect('/income');
+    }
+
+    public function deleteincome($id)
+    {
+        $income = Income::find($id);
+        $income->delete();
+        toastr()->addSuccess(' Income Deleted Successfully.');
+        return redirect()->back();
+    }
 
     public function expenses()
     {

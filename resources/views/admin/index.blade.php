@@ -63,55 +63,10 @@
                     <!-- Content Row -->
                     @include('admin.content')
 
-                    <h1 class="h3 mb-2 text-gray-800">Recent Order List</h1>
-                    <p class="mb-4">provides a detailed and searchable list of the most recent orders placed within the system.</p>
+                    
+                    
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold text-primary">Order List</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="Table" class="table table-bordered" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Customer Name</th>
-                                            <th>Ordered Items</th>
-                                            <th>Category</th>
-                                            <th>Total</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Customer Name</th>
-                                            <th>Ordered Items</th>
-                                            <th>Category</th>
-                                            <th>Total</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                        
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <!-- End of Page Content -->
 
