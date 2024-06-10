@@ -96,17 +96,17 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach($orderlist as $order)
+                        
                                         <tr>
-                                            <td>{{ $order->customer_name }}</td>
-                                            <td>{{ $order->ordered_items }}</td>
-                                            <td>{{ $order->category }}</td>
-                                            <td>{{ $order->price }}</td>
-                                            <td>{{ $order->created_at }}</td>
-                                            <td>{{ $order->updated_at }}</td>
-                                            <td>{{ $order->status }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
-                                        @endforeach
+                                
                                     </tbody>
                                 </table>
                             </div>

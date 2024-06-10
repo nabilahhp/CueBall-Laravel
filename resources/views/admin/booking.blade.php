@@ -63,68 +63,41 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold text-primary">Billiard Table Reservations Tabel</h5>
-                            <a href="{{ url('addbooking') }}" class="btn btn-primary">Add Booking Order</a>
+                            <h5 class="m-0 font-weight-bold text-primary">Booking Details Tabel</h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="Table" class="table table-bordered" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Customer Name</th>
-                                            <th>Billiard Table</th>
-                                            <th>Category</th>
                                             <th>Date</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
+                                            <th>Price </th>
                                             <th>Total Price</th>
-                                            <th>Payment Method</th>
-                                            <th>Payment Proof</th>
                                             <th>Status</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Customer Name</th>
-                                            <th>Billiard Table</th>
-                                            <th>Category</th>
                                             <th>Date</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
+                                            <th>Price </th>
                                             <th>Total Price</th>
-                                            <th>Payment Method</th>
-                                            <th>Payment Proof</th>
                                             <th>Status</th>
-                                            <th>Created</th>
-                                            <th>Updated</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($booking as $bookings)
+                                        @foreach ($sewa as $sewa)
                                         <tr>
-                                            <td>{{ $bookings->customer_name }}</td>
-                                            <td>{{ $bookings->table_name }}</td>
-                                            <td>{{ $bookings->category }}</td>
-                                            <td>{{ $bookings->booking_date }}</td>
-                                            <td>{{ $bookings->start_time }}</td>
-                                            <td>{{ $bookings->end_time }}</td>
-                                            <td>{{ $bookings->price }}</td>
-                                            <td>{{ $bookings->payment_method }}</td>
+                                            <td>{{ $sewa->tgl_pesan }}</td>
+                                            <td>{{ $sewa->harga	 }}</td>
+                                            <td>{{ $sewa->tot }}</td>
+                                            <td>{{ $sewa->status }}</td>
                                             <td>
-                                                <img height="120" width="120" src="/invoice/{{$bookings->payment_proof}}">
-                                            </td>
-                                            <td>{{ $bookings->status }}</td>
-                                            <td>{{ $bookings->created_at }}</td>
-                                            <td>{{ $bookings->updated_at }}</td>
-                                            <td>
-                                                <a href="{{ url('editbooking', $bookings->id) }}" class="btn btn-info btn-circle btn-sm edit-btn">
+                                                <a href="{{ url('editbooking', $sewa->idsewa) }}" class="btn btn-info btn-circle btn-sm edit-btn">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
-                                                <a href="{{ url('deletebooking', $bookings->id) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
+                                                <a href="{{ url('deletebooking', $sewa->idsewa) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </td>
@@ -132,10 +105,59 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div class="container-fluid">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                            <h5 class="m-0 font-weight-bold text-primary">Booking Time Tabel</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="JamSewaTable" class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Booking Date</th>
+                                            <th>Booking Time</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Booking Date</th>
+                                            <th>Booking Time</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach ($jamsewa as $jamsewa)
+                                        <tr>
+                                            <td>{{ $jamsewa->tanggal}}</td>
+                                            <td>{{ $jamsewa->jam}}</td>
+                                            <td>{{ $jamsewa->status }}</td>
+                                            <td>
+                                                <a href="{{ url('editjamsewa', $jamsewa->idsewa) }}" class="btn btn-info btn-circle btn-sm edit-btn">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <a href="{{ url('deletebooking', $jamsewa->idsewa) }}" class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="confirmation(event)">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- End of Page Content -->
             </div>
@@ -206,6 +228,7 @@
 
         $(document).ready(function() {
             $('#Table').DataTable();
+             $('#JamSewaTable').DataTable();
         });
     </script>
 </body>

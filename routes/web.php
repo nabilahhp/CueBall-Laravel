@@ -63,7 +63,9 @@ Route::get('booking', [AdminController::class, 'booking'])-> middleware(['auth',
 Route::get('addbooking', [AdminController::class, 'addbooking'])-> middleware(['auth','admin']);
 Route::post('uploadbooking', [AdminController::class, 'uploadbooking'])-> middleware(['auth','admin']);
 Route::get('editbooking/{id}', [AdminController::class, 'editbooking'])-> middleware(['auth','admin']);
+Route::get('editjamsewa/{id}', [AdminController::class, 'editjamsewa'])-> middleware(['auth','admin']);
 Route::post('updatebooking/{id}', [AdminController::class, 'updatebooking'])-> middleware(['auth','admin']);
+Route::post('updatejamsewa/{id}', [AdminController::class, 'updatejamsewa'])-> middleware(['auth','admin']);
 Route::get('deletebooking/{id}', [AdminController::class, 'deletebooking'])-> middleware(['auth','admin']);
 
 Route::middleware(['auth', 'admin'])->group(function () {

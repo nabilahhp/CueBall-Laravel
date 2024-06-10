@@ -27,10 +27,8 @@ class HomeController extends Controller
     $totalproducts = Product::count();
     $totalitems = $totaltables + $totalproducts;
 
-    $orderproduct = OrderProduct::select('id', 'customer_name', 'product_name as ordered_items', 'category', 'price', 'created_at', 'updated_at', 'status')->get();
-    $booking = Booking::select('id', 'customer_name', 'table_name as ordered_items', 'category', 'price', 'created_at', 'updated_at', 'status')->get();
-    $orderlist = $orderproduct->merge($booking);
-    return view('admin.index', compact('orderlist', 'usercount', 'totalorders', 'completedtasks', 'totalitems'));
+    
+   
 }
 
 }

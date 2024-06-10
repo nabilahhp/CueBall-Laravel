@@ -31,28 +31,24 @@
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
                         </div>
                         <div class="card-body">
-                            <form action="{{ url('updatebooking', $sewa->idsewa) }}" method="post">
+                            <form action="{{ url('updatejamsewa', $jamsewa->id) }}" method="post">
                                 @csrf
                                 <div class="mb-4">
                                     <label>Date</label>
-                                    <input type="text" name="tgl_pesan" class="form-control bg-light border-0 small" value="{{ $sewa->tgl_pesan	 }}">
+                                    <input type="text" name="tanggal" class="form-control bg-light border-0 small" value="{{ $jamsewa->tanggal}}">
                                 </div>
                                 <div class="mb-4">
-                                    <label>Price</label>
-                                    <input type="text" name="harga" class="form-control bg-light border-0 small" value="{{ $sewa->harga }}">
-                                </div>
-                                <div class="mb-4">
-                                    <label>Total Price</label>
-                                    <input type="text" name="tot" class="form-control bg-light border-0 small" value="{{ $sewa->tot }}">
+                                    <label>Time</label>
+                                    <input type="text" name="jam" class="form-control bg-light border-0 small" value="{{ $jamsewa->jam}}">
                                 </div>
                                 <div class="mb-4">
                                     <label>Status</label>
                                     <select name="status" class="form-control bg-light border-0 small" required>
-                                        <option value="Pending" {{ $sewa->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="Confirmed" {{ $sewa->status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
-                                        <option value="Completed" {{ $sewa->status == 'Completed' ? 'selected' : '' }}>Completed</option>
-                                        <option value="Cancelled" {{ $sewa->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
-                                        <option value="On Progress" {{ $sewa->status == 'On Progress' ? 'selected' : '' }}> On Progress</option>
+                                        <option value="Pending" {{ $jamsewa->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="Confirmed" {{ $jamsewa->status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                        <option value="Completed" {{ $jamsewa->status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                                        <option value="Cancelled" {{ $jamsewa->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                        <option value="On Progress" {{ $jamsewa->status == 'On Progress' ? 'selected' : '' }}> On Progress</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">

@@ -13,6 +13,9 @@ use App\Models\Expenses;
 use App\Models\Income;
 use App\Models\Pesan;
 use App\Models\Bayarmkn;
+use App\Models\JamSewa;
+use App\Models\Sewa;
+
 
 class AdminController extends Controller
 {
@@ -345,87 +348,51 @@ class AdminController extends Controller
     
     public function booking()
     {
-        $booking = Booking::all();
-        return view('admin.booking', compact('booking'));
-    }
-
-    public function addbooking()
-    {
-        $category = Category::all();
-        $customer = User::where('usertype', 'user')->get();
-        $table = Table::where('status', 'available')->get();
-
-        return view('admin.addbooking', compact('category', 'table', 'customer'));
+        $sewa = Sewa::all();
+        $jamsewa = JamSewa::all();
+        return view('admin.booking', compact('sewa', 'jamsewa'));
     }
 
     public function editbooking($id)
     {
-        $customer = User::where('usertype', 'user')->get();
-        $data = Booking::find($id);
-        $category = Category::all();
-        return view('admin.editbooking', compact('data', 'category', 'customer'));
-    }
-
-    public function uploadbooking(Request $request)
-    {
-        $data = new Booking();
-        $data->customer_name = $request->customer_name;
-        $data->table_name = $request->table_name;
-        $data->category = $request->category;
-        $data->booking_date = $request->booking_date;
-        $data->start_time = $request->start_time;
-        $data->end_time = $request->end_time;
-        $data->price = $request->price;
-        $data->payment_method = $request->payment_method;
-        $data->status = $request->status;
-
-        if ($request->hasFile('payment_proof')) {
-            $image = $request->file('payment_proof');
-            $imagename = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('invoice'), $imagename);
-            $data->payment_proof = $imagename;
-        } else {
-            $data->payment_proof = null; // Ensure it is set to null if not provided
-        }
-
-        // Save the Booking instance
-        $data->save();
-
-        toastr()->addSuccess('Booking Created Successfully.');
-        return redirect('/booking');
+        $sewa = Sewa::findOrFail($id);
+        return view('admin.editbooking', compact('sewa'));
     }
 
     public function updatebooking(Request $request, $id)
+    {   
+        $sewa = Sewa::findOrFail($id);
+        $sewa->tgl_pesan = $request->input('tgl_pesan');
+        $sewa->harga = $request->input('harga');
+        $sewa->tot = $request->input('tot');
+        $sewa->status = $request->input('status');
+        $sewa->save();
+
+        toastr()->addSuccess('Booking Updated Successfully.');
+        return redirect('/booking');
+    }
+
+    public function editjamsewa($idsewa)
+    {   
+    $jamsewa = JamSewa::where('idsewa', $idsewa)->first();
+    return view('admin.editjamsewa', compact('jamsewa'));
+    }
+
+    public function updatejamsewa(Request $request, $id)
     {
-                
-                $data = Booking::find($id);
-                $data->customer_name = $request->customer_name;
-                $data->table_name = $request->table_name;
-                $data->category = $request->category;
-                $data->booking_date = $request->booking_date;
-                $data->start_time = $request->start_time;
-                $data->end_time = $request->end_time;
-                $data->price = $request->price;
-                $data->payment_method = $request->payment_method;
-                $data->status = $request->status;
-                $image = $request->payment_proof;
-                If($image)
-                {
-                    $imagename = time().'.'.$image->getClientOriginalExtension();
-                    $request->payment_proof->move('invoice',$imagename);
-                    $data->payment_proof = $imagename;
-                }
-
-                $data->save();
-
-                toastr()->addSuccess('Booking Updated Successfully.');
-                return redirect('/booking');
-            }
+    $jamsewa = JamSewa::findOrFail($id);
+    $jamsewa->tanggal = $request->input('tanggal');
+    $jamsewa->jam = $request->input('jam');
+    $jamsewa->status = $request->input('status');
+    $jamsewa->save();
+    toastr()->addSuccess('Booking Updated Successfully.');
+    return redirect('/booking');
+    }
 
     public function deletebooking($id)
     {
-        $booking = Booking::find($id);
-        $booking->delete();
+        $data = Booking::findOrFail($id);
+        $data->delete();
         toastr()->addSuccess('Booking Deleted Successfully.');
         return redirect()->back();
     }
